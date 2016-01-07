@@ -306,7 +306,7 @@ a:link {text-decoration: none; color: black}
 					<td><input type="checkbox" id="fabricenable" /></td>
 				<tr>
 				<tr>
-					<td>HA?</td>
+					<td>Enable High Availability</td>
 					<td><input type="checkbox" id="ha" /></td>
 				<tr>
 				<tr>
@@ -328,18 +328,29 @@ a:link {text-decoration: none; color: black}
 </div>
 
 		<h2 align="left" class="demoHeaders">Recommendation</h2>
-		<div class="ui-widget" width="450" >
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em; display: none;" id="fabricRecommendation">
-				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				Need to have ? plus</p>
+		<div class="ui-widget">
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em; display: none; width: 600px;" id="fabricRecommendation">
+				<p>
+					<B>Red Hat JBoss Fuse Fabric</B> 
+					<BR/>
+					Allows you deploy a group of containers into a fabric. All of the brokers in a fabric are managed by a distributed Fabric Ensemble that stores runtime and configuration information for all of the containers in the fabric. Using this information the ensemble enables you to manage large deployments.
+					<BR/>
+					<BR/>
+					The Fabric Ensemble, based on Apache Zookeeper, maintains two databases:
+					<ul>
+							<li>Centralized configuration</li>
+							<li>Runtime information</li>
+					</ul>
+					The servers in the ensemble use a quorum policy to elect the master server and will re-elect a new master when the current master fails. To ensure optimal performance of the ensemble you should deploy an <font color="red"><B>odd number</B></font> of Fabric Servers to maintain the ensemble. The more servers in the ensemble, the more failures it can endure.
+					
+				</p>
 			</div>
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em; display: none;" id="haRecommendation">
-				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				Need to have ? plus</p>
-			</div>
-			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em; display: none;" id="jvmRecommendation">
-				<p><span class="ui-icon ui-icon-info" style="float: left; margin-right: .3em;"></span>
-				Need to have ? plus</p>
+			<div class="ui-state-highlight ui-corner-all" style="margin-top: 20px; padding: 0 .7em; display: none; width: 600px;" id="haRecommendation">
+				<p>
+					<B>High Availability</B>
+					<BR/>
+					When all of your servers and clients are deployed within the same fabric, you can use an alternative mechanism for implementing high availability cluster, which works by exploiting the fabric registry. Because all the parts of the application must be deployed on the same fabric, this mechanism is suitable for deployment on a LAN.
+				</p>
 			</div>
 		</div>
 		<BR/>
@@ -364,6 +375,78 @@ a:link {text-decoration: none; color: black}
 	      <li><b><a href="#" id="estLogsizeY2">  </a> GB</b> Disk Space</li>
 	    </ul>
 	  </div>
+	</div>
+	<BR/>
+	<BR/>
+	<BR/>
+	<div class="ui-widget">
+		<div class="ui-state-default ui-corner-all" style="margin-top: 20px; padding: 0 .7em; width: 600px;" id="calculationMethod">
+			<h2>Appendix:</h2>
+			<table style="color: black; ">
+				<tr>
+					<td>
+						<h3>METRICS:</h3>
+						<BR/>
+						<table style="color: black;text-align: left;">
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;"></th>
+								<th style="border-bottom: 1px solid #ddd;">Transaction Per Second:</th>
+							</tr>
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;">MQ without Presistence</th>
+								<td style="border-bottom: 1px solid #ddd;">13324</td>
+							</tr>
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;">MQ with Presistence</th>
+								<td style="border-bottom: 1px solid #ddd;">122</td>
+							</tr>
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;">Web Service</th>
+								<td style="border-bottom: 1px solid #ddd;">3400</td>
+							</tr>
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;">Filebase</th>
+								<td style="border-bottom: 1px solid #ddd;">4587</td>
+							</tr>
+					</table>
+					</td>
+				</tr>	
+				<tr>
+					<td>
+					<h3>HARDWARE:</h3>
+					<BR/>
+					The above is test on 
+					<table style="color: black;text-align: left;">
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;">CPU</th>
+								<th style="border-bottom: 1px solid #ddd;">Intel(R) Xeon(R) CPU E5540 @ 2.53GHz (16 cores)</th>
+							</tr>
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;">Memory</th>
+								<td style="border-bottom: 1px solid #ddd;">36G</td>
+							</tr>
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;">OS</th>
+								<td style="border-bottom: 1px solid #ddd;">Red Hat Enterprise Linux Server release 6.1</td>
+							</tr>
+							<tr>
+								<th style="border-bottom: 1px solid #ddd;">JVM</th>
+								<td style="border-bottom: 1px solid #ddd;">Oracle JDK 1.7.0_30-x86_64	</td>
+							</tr>
+					</table></td>
+				</tr>	
+				<tr>
+					<td>
+						<h3>Disk Space:</h3>
+						<ul>
+							<li>1 GB for installed product file</li>
+							<li>5+ GB for log files and deployed artifacts per node</li>
+							<li>1 GB local repo/Runtime/Config repo per node</li>
+							<li>Message size * peak message load per sec + overhead</li>
+					</td>
+				</tr>
+			</table>
+		</div>
 	</div>
 
 <script src="external/jquery/jquery.js"></script>
