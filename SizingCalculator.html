@@ -2,7 +2,7 @@
 <html lang="us">
 <head>
 	<meta charset="utf-8">
-	<title>jQuery UI Example Page</title>
+	<title>JBoss Fuse Sizing Guide</title>
 	<link href="jquery-ui.css" rel="stylesheet">
 	<style>
 	body{
@@ -204,15 +204,15 @@ a:link {text-decoration: none; color: black}
 					<table>
 						<tr>
 							<td>Estimate message size (KB):</td>
-							<td><input type="text" name="mqnopressize" id="mqnopressize" value="20"/></td>
+							<td><input type="text" name="mqnopressize" id="mqnopressize" value="20" title="Average message size per transaction"/></td>
 						<tr>
 						<tr>
 							<td>Estimated peak/sec:</td>
-							<td><input type="text" name="mqnoprespeak" id="mqnoprespeak" value="100"/></td>
+							<td><input type="text" name="mqnoprespeak" id="mqnoprespeak" value="100" title="Peak number of transactions per seconds"/></td>
 						<tr>
 						<tr>
 							<td>Estimate number of Endpoints:</td>
-							<td><input type="text" name="mqnopresendpoints" id="mqnopresendpoints" value="50"></td>
+							<td><input type="text" name="mqnopresendpoints" id="mqnopresendpoints" value="50" title="Number of client endpoint that will connect to the brokers" /></td>
 						<tr>
 					</table>
 			</div>
@@ -221,15 +221,15 @@ a:link {text-decoration: none; color: black}
 					<table>
 						<tr>
 							<td>Estimate message size (KB):</td>
-							<td><input type="text" name="mqsize" id="mqsize" value="600"/></td>
+							<td><input type="text" name="mqsize" id="mqsize" value="600" title="Average message size per transaction"/></td>
 						<tr>
 						<tr>
 							<td>Estimated peak/sec:</td>
-							<td><input type="text" name="mqpeak" id="mqpeak" value="40"/></td>
+							<td><input type="text" name="mqpeak" id="mqpeak" value="40" title="Peak number of transactions per seconds"/></td>
 						<tr>
 						<tr>
 							<td>Estimate number of Endpoints:</td>
-							<td><input type="text" name="mqendpoints" id="mqendpoints" value="30" /></td>
+							<td><input type="text" name="mqendpoints" id="mqendpoints" value="30" title="Number of client endpoint that will connect to the brokers" /></td>
 						<tr>
 					</table>
 			</div>
@@ -238,15 +238,15 @@ a:link {text-decoration: none; color: black}
 					<table>
 						<tr>
 							<td>Estimate message size (KB):</td>
-							<td><input type="text" name="wssize" id="wssize" value="80"/></td>
+							<td><input type="text" name="wssize" id="wssize" value="80" title="Average input message size per request" /></td>
 						<tr>
 						<tr>
 							<td>Estimated peak/sec:</td>
-							<td><input type="text" name="wspeak" id="wspeak" value="300"/></td>
+							<td><input type="text" name="wspeak" id="wspeak" value="300" title="Peak number of request per seconds"/></td>
 						<tr>
 						<tr>
 							<td>Estimate number of Endpoints:</td>
-							<td><input type="text" name="wsendpoints" id="wsendpoints" value="40"/></td>
+							<td><input type="text" name="wsendpoints" id="wsendpoints" value="40" title="Total number of web endpoints"/></td>
 						<tr>
 					</table>
 			</div>
@@ -255,15 +255,15 @@ a:link {text-decoration: none; color: black}
 					<table>
 						<tr>
 							<td>Estimate message size (KB):</td>
-							<td><input type="text" name="filesize" id="filesize" value="7000"/></td>
+							<td><input type="text" name="filesize" id="filesize" value="7000"  title="Average file size per transaction" /></td>
 						<tr>
 						<tr>
 							<td>Estimated peak/sec:</td>
-							<td><input type="text" name="fileprespeak" id="fileprespeak" value="70"/></td>
+							<td><input type="text" name="fileprespeak" id="fileprespeak" value="70" title="Peak number of request per seconds"/></td>
 						<tr>
 						<tr>
 							<td>Estimate number of Endpoints:</td>
-							<td><input type="text" name="fileendpoints" id="fileendpoints" value="40"/></td>
+							<td><input type="text" name="fileendpoints" id="fileendpoints" value="40" title="Total number of file endpoints, including file access and FTP"/></td>
 						<tr>
 					</table>
 			</div>
@@ -273,7 +273,7 @@ a:link {text-decoration: none; color: black}
 			<table>
 						<tr>
 							<td>Host/Machines installing JBoss Fuse:</td>
-							<td><input type="text" name="hosts" id="hosts"  value="6"/></td>
+							<td><input type="text" name="hosts" id="hosts"  value="6" title="Machines or VM hosts provided to install JBoss Fuse"/></td>
 						<tr>
 						<tr>
 							<td>Log Level</td>
@@ -291,27 +291,27 @@ a:link {text-decoration: none; color: black}
 			<table>
 				<tr>
 					<td>Performance Contingency in %</td>
-					<td><input type="text" id="contingency" name="contingency" value="65"/></td>
+					<td><input type="text" id="contingency" name="contingency" value="65" title="For risk assessment, by reducing performance number incase of unexpected circumstances, DEFAULT is 65%"/></td>
 				<tr>
 				<tr>
 					<td>Extra Load in %</td>
-					<td><input type="text" id="extraload" name="extraload" value="20"/></td>
+					<td><input type="text" id="extraload" name="extraload" value="20" title="Host has extra load also running on machine, how many % was allocate to it." /></td>
 				<tr>
 				<tr>
 					<td>％ of complex processing route</td>
-					<td><input type="text" id="complexroute" name="complexroute" value="20"/></td>
+					<td><input type="text" id="complexroute" name="complexroute" value="20" title="% how many complex event process routes within the application"/></td>
 				<tr>
 				<tr>
 					<td>Is Fabric enabled?</td>
-					<td><input type="checkbox" id="fabricenable" /></td>
+					<td><input type="checkbox" id="fabricenable" title="Will Fuse Fabric be enabled for management?" /></td>
 				<tr>
 				<tr>
 					<td>Enable High Availability</td>
-					<td><input type="checkbox" id="ha" /></td>
+					<td><input type="checkbox" id="ha" title="Do you need High Availability?"/></td>
 				<tr>
 				<tr>
 					<td>Growth in %</td>
-					<td><input type="text" id="growth" value="15"/></td>
+					<td><input type="text" id="growth" value="15" title="Estimate application growth next year?"/></td>
 				<tr>					
 			</table>	
 		</div>
@@ -496,7 +496,30 @@ $('#fabricenable').change(function() {
 	}     
 });
 
+$( "#mqnopressize" ).tooltip();
+$( "#mqnoprespeak" ).tooltip();
+$( "#mqnopresendpoints" ).tooltip();
 
+$( "#mqsize" ).tooltip();
+$( "#mqpeak" ).tooltip();
+$( "#mqendpoints" ).tooltip();
+
+$( "#wssize" ).tooltip();
+$( "#wspeak" ).tooltip();
+$( "#wsendpoints" ).tooltip();
+
+$( "#filesize" ).tooltip();
+$( "#filepeak" ).tooltip();
+$( "#fileendpoints" ).tooltip();
+
+
+$( "#hosts" ).tooltip();
+$( "#contingency" ).tooltip();
+$( "#extraload" ).tooltip();
+$( "#complexroute" ).tooltip();
+$( "#fabricenable" ).tooltip();
+$( "#ha" ).tooltip();
+$( "#growth" ).tooltip();
 		
 //Numeric Validation
 jQuery.validator.setDefaults({
@@ -572,6 +595,8 @@ $( "#myform" ).validate({
     }
   }
 });
+
+
 
 
 /*Calculate Sizing Data*/
