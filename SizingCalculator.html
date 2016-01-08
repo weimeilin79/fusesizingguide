@@ -207,8 +207,8 @@ a:link {text-decoration: none; color: black}
 							<td><input type="text" name="mqnopressize" id="mqnopressize" value="20" title="Average message size per transaction"/></td>
 						<tr>
 						<tr>
-							<td>Estimated peak/sec:</td>
-							<td><input type="text" name="mqnoprespeak" id="mqnoprespeak" value="100" title="Peak number of transactions per seconds"/></td>
+							<td>Estimated messages peak messages/sec:</td>
+							<td><input type="text" name="mqnoprespeak" id="mqnoprespeak" value="100" title="Peak number of messages transactions per seconds"/></td>
 						<tr>
 						<tr>
 							<td>Estimate number of Endpoints:</td>
@@ -224,8 +224,8 @@ a:link {text-decoration: none; color: black}
 							<td><input type="text" name="mqsize" id="mqsize" value="600" title="Average message size per transaction"/></td>
 						<tr>
 						<tr>
-							<td>Estimated peak/sec:</td>
-							<td><input type="text" name="mqpeak" id="mqpeak" value="40" title="Peak number of transactions per seconds"/></td>
+							<td>Estimated peak messages/sec:</td>
+							<td><input type="text" name="mqpeak" id="mqpeak" value="40" title="Peak number of messages transactions per seconds"/></td>
 						<tr>
 						<tr>
 							<td>Estimate number of Endpoints:</td>
@@ -241,8 +241,8 @@ a:link {text-decoration: none; color: black}
 							<td><input type="text" name="wssize" id="wssize" value="80" title="Average input message size per request" /></td>
 						<tr>
 						<tr>
-							<td>Estimated peak/sec:</td>
-							<td><input type="text" name="wspeak" id="wspeak" value="300" title="Peak number of request per seconds"/></td>
+							<td>Estimated peak webservice calls/sec:</td>
+							<td><input type="text" name="wspeak" id="wspeak" value="300" title="Peak number of webservice calls per seconds"/></td>
 						<tr>
 						<tr>
 							<td>Estimate number of Endpoints:</td>
@@ -258,8 +258,8 @@ a:link {text-decoration: none; color: black}
 							<td><input type="text" name="filesize" id="filesize" value="7000"  title="Average file size per transaction" /></td>
 						<tr>
 						<tr>
-							<td>Estimated peak/sec:</td>
-							<td><input type="text" name="fileprespeak" id="fileprespeak" value="70" title="Peak number of request per seconds"/></td>
+							<td>Estimated peak processed file/sec:</td>
+							<td><input type="text" name="fileprespeak" id="fileprespeak" value="70" title="Peak number of file processed per seconds"/></td>
 						<tr>
 						<tr>
 							<td>Estimate number of Endpoints:</td>
@@ -272,11 +272,11 @@ a:link {text-decoration: none; color: black}
 		<div id="tabs-2">
 			<table>
 						<tr>
-							<td>Host/Machines installing JBoss Fuse:</td>
+							<td>Host/machines with JBoss Fuse installed:</td>
 							<td><input type="text" name="hosts" id="hosts"  value="6" title="Machines or VM hosts provided to install JBoss Fuse"/></td>
 						<tr>
 						<tr>
-							<td>Log Level</td>
+							<td>Log Level:</td>
 							<td>
 									<select id="logsize">
 										<option value="15">DEBUG</option>
@@ -290,15 +290,15 @@ a:link {text-decoration: none; color: black}
 		<div id="tabs-3">
 			<table>
 				<tr>
-					<td>Performance Contingency in %</td>
+					<td>Performance Contingency in %:</td>
 					<td><input type="text" id="contingency" name="contingency" value="65" title="For risk assessment, by reducing performance number incase of unexpected circumstances, DEFAULT is 65%"/></td>
 				<tr>
 				<tr>
-					<td>Extra Load in %</td>
+					<td>Extra Load in %:</td>
 					<td><input type="text" id="extraload" name="extraload" value="20" title="Host has extra load also running on machine, how many % was allocate to it." /></td>
 				<tr>
 				<tr>
-					<td>％ of complex processing route</td>
+					<td>％ of complex processing route:</td>
 					<td><input type="text" id="complexroute" name="complexroute" value="20" title="% how many complex event process routes within the application"/></td>
 				<tr>
 				<tr>
@@ -306,11 +306,11 @@ a:link {text-decoration: none; color: black}
 					<td><input type="checkbox" id="fabricenable" title="Will Fuse Fabric be enabled for management?" /></td>
 				<tr>
 				<tr>
-					<td>Enable High Availability</td>
+					<td>Enable High Availability?</td>
 					<td><input type="checkbox" id="ha" title="Do you need High Availability?"/></td>
 				<tr>
 				<tr>
-					<td>Growth in %</td>
+					<td>Growth in %:</td>
 					<td><input type="text" id="growth" value="15" title="Estimate application growth next year?"/></td>
 				<tr>					
 			</table>	
