@@ -1,0 +1,51 @@
+<html>
+	<title>Dealer Management System- Random Geolocation Generator</title>
+	<meta http-equiv="Access-Control-Allow-Origin" content="*">
+	<body>
+		<h1>Dealer Management System- Random Geolocation Generator</h1>
+		<BR/>
+		<FORM>
+		<INPUT TYPE="button" onClick="history.go(0)" VALUE="start over">
+		</FORM>
+		<p id="input"></p>
+	</body>
+	<script>  
+		
+		var xhttp = new XMLHttpRequest();
+		
+		function makeid(){
+	    var text = "";
+	    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+	
+	    for( var i=0; i < 5; i++ )
+	        text += possible.charAt(Math.floor(Math.random() * possible.length));
+	
+	    return text;
+		}
+		
+		  	
+		setInterval(function(){ 
+				gpsstarted=false;
+		    geolongtitude = Math.floor((Math.random()*100)+1);
+		    geolangtitude = Math.floor((Math.random()*100)+1);
+		    console.log("Geo Location longtitude:"+geolongtitude+" langtitude:"+geolangtitude +"<BR/>"); 
+		    
+		    document.getElementById("input").innerHTML = document.getElementById("input").innerHTML+"geolongtitude:"+geolongtitude+" geolangtitude:"+geolangtitude +"<BR/>";
+				
+				randonCustName=makeid();
+				
+				var url = "http://gpsservice-demo.cdk.10.1.2.2.xip.io/AutoDMS/cargps/"+randonCustName+"/"+geolongtitude+","+geolangtitude;      
+				xhttp.open("GET", url, true);
+		   	xhttp.send();
+		}, 2000);
+						
+						
+  
+  	
+  
+					
+			
+			
+	</script>
+	
+</html>
