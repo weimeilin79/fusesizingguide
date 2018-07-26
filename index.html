@@ -1,0 +1,422 @@
+      
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" type="text/css" href="/node_modules/patternfly/dist/css/patternfly.css">
+  <link rel="stylesheet" type="text/css" href="/node_modules/patternfly/dist/css/patternfly-additions.css">
+</head>
+<style>
+.footer {
+   border-top: 1px solid #D5D5D5;
+   left: 0;
+   bottom: 0;
+   width: 100%;
+   text-align: center;
+   line-height: 15px;
+	 padding-bottom: 28px;
+	 padding-top: 28px;
+	 font-size: 10px;
+	 
+   
+}
+</style>
+<body>
+	<nav class="navbar navbar-default navbar-pf" role="navigation">
+	  <div class="navbar-header">
+	    
+	    <a class="navbar-brand" href="/">
+	      <img src="https://hdijkhuis.files.wordpress.com/2015/08/redhat_logo.png?w=80" alt="Fuse Sizing Guide" />
+	    </a> 
+	  </div>
+ 
+	</nav>
+  <div class="container">
+
+    <!-- Just enjoy various PatternFly components -->
+    
+    
+    <h1>Fuse 7 Sizing Reference</h1>
+    
+    <ul>
+		  <li>The purpose of this Fuse Sizing Application is to give a rough estimation of the minimums resources needed when deploying Red Hat Fuse </li>
+		  <li>This application requires you to specify the peak traffic, number of endpoints and the estimate size of the each transaction. </li>
+		  <li>The tooling will help you to estimate </li>
+		  <ul>
+		  		<li>The recommended cores to allocate for Integration </li>
+		  		<li>The recommended disk space require in total</li>
+		  		<li>The recommended pods to run on OpenShift in total</li>
+		  </ul>
+		  <li>Memory allocation is there for your reference, and should not be used. Always tune your Fuse/Camel routes.</li>
+		</ul>
+		
+		<div id="notice" >
+			<div class="alert alert-danger alert-dismissable">
+			  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+			    <span class="pficon pficon-close"></span>
+			  </button>
+			  <span class="pficon pficon-error-circle-o"></span>
+			  <strong>Error!</strong> <span id="errormsg" />.
+			</div>
+		</div>
+
+		<h3>Input following data to calculate sizing: </h3>
+		<BR/>
+						<form id="sizingform" class="form-horizontal">
+								<table class="table table-striped table-bordered table-hover" id="table1">
+								  <thead>
+								    <tr>
+								    	<th>Complexity</th>
+								      <th>Estimate data size (KB)</th>
+								      <th>Estimated peak transaction/sec</th>
+								      <th>Estimate number of routes</th>
+								    </tr>
+								  </thead>
+								  <tbody>
+								  	<tr>
+								  		<td><h5>Simple</h5></td>
+								  		<td><input class="col-sm-6 control-label" id="s-size" type="text" value=300></td>
+								  		<td><input class="col-sm-6 control-label" id="s-peak" type="text" value=20></td>
+								  		<td><input class="col-sm-6 control-label" id="s-endpoint" type="text" value=6></td>
+								  	</tr>
+								  	<tr>
+								  		<td><h5>Meduim</h5></td>
+								  		<td><input class="col-sm-6 control-label" id="m-size" type="text" value=0></td>
+								  		<td><input class="col-sm-6 control-label" id="m-peak" type="text" value=0></td>
+								  		<td><input class="col-sm-6 control-label" id="m-endpoint" type="text" value=0></td>
+								  	</tr>
+								  	<tr>
+								  		<td><h5>High</h5></td>
+								  		<td><input class="col-sm-6 control-label" id="h-size" type="text" value=0></td>
+								  		<td><input class="col-sm-6 control-label" id="h-peak" type="text" value=0></td>
+								  		<td><input class="col-sm-6 control-label" id="h-endpoint" type="text" value=0></td>
+								  	</tr>
+									</tbody>
+								</table>
+		 
+
+						
+							  <div class="form-group">
+							    <label class="col-sm-3 control-label" for="textInput-markup">Log Level</label>
+							    <div class="col-sm-9">
+							      <select id="logsize" class="form-control">
+											<option value="10">DEBUG</option>
+											<option value="5" selected="selected">INFO</option>
+											<option value="2">WARN</option>
+										</select>
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label class="col-sm-3 control-label" for="textInput-markup">Performance Contingency in %:</label>
+							    <div class="col-sm-9">
+							      <input type="text" id="contingency" class="form-control" value="0">
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label class="col-sm-3 control-label" for="textInput-markup">Extra Load in %</label>
+							    <div class="col-sm-9">
+							      <input type="text" id="extraload" class="form-control" value="0">							      
+							    </div>
+							  </div>
+							  <div class="form-group">
+							    <label class="col-sm-3 control-label" for="textInput-markup">Growth in %</label>
+							    <div class="col-sm-9">
+							      <input type="text" id="growth" class="form-control" value="0">							      
+							    </div>
+							  </div>
+							  <p align="left">
+					  			<button class="btn btn-primary" type="button" id="calculate">Calculate</button>
+								</p>
+							</form>
+							
+		<BR/>
+		
+		
+		<h3>Result: </h3>
+		<BR/>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="card-pf card-pf-view ">
+			  <div class="card-pf-body">
+			    <div class="card-pf-top-element">
+			      <span class="fa fa-hand-o-up card-pf-icon-circle"></span>
+			    </div>
+			    <h2 class="card-pf-title text-center">
+			      YEAR ONE
+			    </h2>
+			    <div class="card-pf-items text-center">
+			      <div class="card-pf-item">
+			        <span class="pficon pficon-cpu"></span>  Core: 
+			        <span class="card-pf-item-text" id="estCore">-</span>
+			      </div>
+			      <div class="card-pf-item">
+			      	<span class="pficon pficon-storage-domain"></span>  Disk: 
+			        <span class="card-pf-item-text" id="estDisk">- </span> GB
+			      </div>
+			      <div class="card-pf-item">
+			      	<span class="pficon pficon-registry"></span>  OpenShift Pod: 
+			        <span class="card-pf-item-text" id="estPod">- </span>
+			      </div>
+			    </div>
+			    
+			    <p class="card-pf-info text-center"> 
+			    	<strong>Estimation ONLY</strong> <BR/>
+			    	Possible Max. peak memory usage <BR/> 
+			    	<span id="estMaxMem">-</span> GB 
+			    </p>
+			    
+			  </div>
+			  <div class="card-pf-view-checkbox">
+			    <input type="checkbox">
+			  </div>
+			</div>
+		</div>
+		
+		<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+			<div class="card-pf card-pf-view ">
+			  <div class="card-pf-body">
+			    <div class="card-pf-top-element">
+			      <span class="fa fa-angellist card-pf-icon-circle"></span>
+			    </div>
+			    <h2 class="card-pf-title text-center">
+			      YEAR TWO
+			    </h2>
+			    <div class="card-pf-items text-center">
+			      <div class="card-pf-item">
+			        <span class="pficon pficon-cpu"></span>  Core: 
+			        <span class="card-pf-item-text" id="estCoreY2">-</span>
+			      </div>
+			      <div class="card-pf-item">
+			      	<span class="pficon pficon-storage-domain"></span>  Disk: 
+			        <span class="card-pf-item-text" id="estDiskY2">- </span> GB
+			      </div>
+			      <div class="card-pf-item">
+			      	<span class="pficon pficon-registry"></span>  OpenShift Pod: 
+			        <span class="card-pf-item-text" id="estPodY2">- </span>
+			      </div>
+			    </div>
+			    <p class="card-pf-info text-center"> 
+			    	<strong>Estimation ONLY</strong> <BR/>
+			    	Possible Max. peak memory usage <BR/> 
+			    	<span id="estMaxMemY2">-</span> GB 
+			    </p>
+			  </div>
+			  <div class="card-pf-view-checkbox">
+			    <input type="checkbox">
+			  </div>
+			</div>
+		</div>
+  </div>
+  <BR/>
+	<BR/>
+	<BR/>
+
+  
+
+  <div class="container">
+  	
+			
+  	<ul>
+		  <li><strong>Express Tunning Guide:</strong></li>
+		  <ul>
+		  		<li>Multithread when possible</li>
+			  		<ul>
+			  			<li>Use Parallel processing EIP</li>
+			  				<ul>
+					  			<li>Spilt</li>
+					  			<li>Multicast</li>
+					  			<li>Throttler</li>
+					  		</ul>
+			  			<li>Use Seda component to invoke other routes</li>	
+			  			<li>Use Asynchronous endpoint, and remember to set timeouts</li>	
+			  			<li>For HTTP protocol, implement circuit breaker</li>	
+			  		</ul>
+		  		<li>Streaming and stream caching when dealing with large message payload</li>
+		  		<li>Configure logging level</li>	
+		  		<li>For more info, see Post from  <a href="https://dzone.com/articles/performance-tuning-ideas-for-apache-camel">Bilgin Ibryam</a> </li>
+		  </ul>
+		</ul>
+		<BR/>
+		<div class="container-fluid container-cards-pf">
+			<div class="row row-cards-pf">
+				<div class="col-xs-6 col-sm-4 col-md-4">
+					<div class="card-pf">
+					  <div class="card-pf-heading">
+					    <h2 class="card-pf-title">
+					      Complexity
+					    </h2>
+					  </div>
+					  <div class="card-pf-body">
+						  <ul>
+					  		<li><b>Simple</b> - Web/API proxying, message passthrough</li>
+					  		<li><b>Meduim</b> - Web/API proxying or Events, with some data parsing and processing</li>
+					  		<li><b>High</b> - Large data parsing and processing with slower producer endpoints</li>
+					  	</ul>
+					  </div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-4 col-md-4">
+					<div class="card-pf">
+					  <div class="card-pf-heading">
+					    <h2 class="card-pf-title">
+					    	Base Metrics
+					    </h2>
+					  </div>
+					  <div class="card-pf-body">
+						  <ul>
+					  		<li><b>Spring Boot</b> - Default container configurations</li>
+					  		<li><b>EAP</b> - 1000 Threads</li>
+					  		<li><b>Karaf</b> - 1000 Threads</li>
+					  	</ul>
+					  </div>
+					</div>
+				</div>
+				<div class="col-xs-6 col-sm-4 col-md-4">
+					<div class="card-pf">
+					  <div class="card-pf-heading">
+					    <h2 class="card-pf-title">
+					      Disk Space
+					    </h2>
+					  </div>
+					  <div class="card-pf-body">
+						  <ul>
+						  		<li>Est. 1 GB for installed product file/per host</li>
+						  		<li>5+ GB for log files and deployed artifacts per node</li>
+						  </ul>
+					  </div>
+					</div>
+				</div>
+			</div><!-- /row -->
+		</div><!-- /container -->
+		
+  </div>
+  <BR/>
+  
+
+
+	<BR/>
+	<BR/>
+  <script src="/node_modules/jquery/dist/jquery.js"></script>
+  <script src="/node_modules/bootstrap/dist/js/bootstrap.js"></script>
+  <script>
+ 	
+ 		//Estimate Load
+		/////////////////UPDATE WHEN NEW DATA AVALIABLE///////////////////////////////////
+		var sload = 14121;
+		var mload = 7278;
+		var hload = 3400;
+		var throughputsec=200; // change it from 300 to 200
+		
+		
+		var productInstall=1;
+		//////////////////////////////////////////////////////////////////////////////////
+ 		$( "#notice" ).hide();
+ 		
+ 		$( "#calculate" ).click(function( event ) {
+ 			
+ 				var ssize = $('#s-size').val();
+		 		var speak = $('#s-peak').val();
+		 		var sendpoint = $('#s-endpoint').val();
+		 		var msize = $('#m-size').val();
+		 		var mpeak = $('#m-peak').val();
+		 		var mendpoint = $('#m-endpoint').val();
+		 		var hsize = $('#h-size').val();
+		 		var hpeak = $('#h-peak').val();
+		 		var hendpoint = $('#h-endpoint').val();
+ 			
+ 				if(!$.isNumeric(ssize)){ssize=0; $('#s-size').val(0);}
+				if(!$.isNumeric(speak)){speak=0; $('#s-peak').val(0);}
+				if(!$.isNumeric(sendpoint)){sendpoint=0; $('#s-endpoint').val(0);}
+				
+				if(!$.isNumeric(msize)){ssize=0; $('#m-size').val(0);}
+				if(!$.isNumeric(mpeak)){speak=0; $('#m-peak').val(0);}
+				if(!$.isNumeric(mendpoint)){sendpoint=0; $('#m-endpoint').val(0);}
+				
+				if(!$.isNumeric(hsize)){ssize=0; $('#h-size').val(0);}
+				if(!$.isNumeric(hpeak)){speak=0; $('#h-peak').val(0);}
+				if(!$.isNumeric(hendpoint)){sendpoint=0; $('#h-endpoint').val(0);}
+				
+				var contingency = $('#contingency').val();
+				var extraload = $('#extraload').val();
+				var growth = $('#growth').val();
+				var logsize = $('#logsize').val();
+				
+				
+				if(!$.isNumeric(contingency)){contingency=0; $('#contingency').val(0);}
+				if(!$.isNumeric(extraload)){extraload=0; $('#extraload').val(0);}
+				if(!$.isNumeric(growth)){growth=0; $('#growth').val(0);}
+				if(!$.isNumeric(logsize)){logsize=5;}
+				
+				
+				var sUTPS= speak*sendpoint;
+				var mUTPS= mpeak*mendpoint;
+				var hUTPS= hpeak*hendpoint;
+
+		 		
+		 		if(contingency==0){
+		 			contingency=100;
+		 		} else if (contingency > 99){
+		 			 $('#errormsg').text('Performance Contingency should not be bigger than 99% \n');
+		 			 $( "#notice" ).show();	
+		 			 return;
+		 		}
+		 		
+		 		//Say 2 GB is the default memory, the bigger the message, it will affect the performance
+				
+				var estSCore = Math.ceil((sUTPS*(1+extraload*0.01))/sload/(contingency*0.01)/throughputsec);
+				var estMCore = Math.ceil((mUTPS*(1+extraload*0.01))/mload/(contingency*0.01)/throughputsec);
+				var estHCore = Math.ceil((hUTPS*(1+extraload*0.01))/hload/(contingency*0.01)/throughputsec);
+				
+				var estSMem = Math.ceil((sUTPS*(1+extraload*0.01))/(contingency*0.01)/throughputsec*ssize/1000000);
+				var estMMem = Math.ceil((mUTPS*(1+extraload*0.01))/(contingency*0.01)/throughputsec*msize/1000000);
+				var estHMem = Math.ceil((hUTPS*(1+extraload*0.01))/(contingency*0.01)/throughputsec*hsize/1000000);
+				
+				
+				var estCore = estSCore+estMCore+estHCore;
+				var estMaxMem = estSMem+estMMem+estHMem;
+				var estPod = Math.ceil(estCore/2);
+				console.log('estCore - '+estCore);
+				console.log('estMem - '+estMaxMem);
+				console.log('estPod - '+estPod);
+
+				$('#estCore').text(estCore);
+				$('#estPod').text(estPod);
+				$('#estMaxMem').text(estMaxMem);
+				
+				$('#estCoreY2').text(Math.ceil(estCore*(1+(growth*0.01))));
+				$('#estPodY2').text(Math.ceil(estPod*(1+(growth*0.01))));
+				$('#estMaxMemY2').text(Math.ceil(estMaxMem*(1+(growth*0.01))));
+				
+				
+				//Est Product Bundle size (EST. 2 core per host)
+				var estdisckspace = Math.ceil(((logsize * (estCore/2))+( productInstall* (estCore/2)))*(1+extraload*0.01));
+				
+				console.log('estdisckspace - '+estdisckspace);
+				
+				$('#estDisk').text(estdisckspace);
+				
+				$('#estDiskY2').text(Math.ceil(estdisckspace*(1+(growth*0.01))));
+		 		
+ 			
+ 		});
+ 		
+ 		
+ 	
+ 		
+ 		
+		
+ 		
+ 		
+ 	</script>
+  <footer class="footer">
+              <a href="https://developers.redhat.com/products/fuse/overview/"><img src="https://developers.redhat.com/blog/wp-content/uploads/2018/05/RH_Fuse_RGB_Black.png" alt="Fuse" width="40"/></a>
+              
+               Fuse 7 Sizing Guide v1.0
+              <BR/>
+              Any question please contact <a href="mailto:clin@redhat.com?Subject=Sizing Guide%20Question" target="_top">Christina Lin</a>
+              
+            </footer>
+</body>
+</html>
+
+    
