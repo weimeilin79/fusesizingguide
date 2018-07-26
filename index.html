@@ -67,29 +67,29 @@
 								  <thead>
 								    <tr>
 								    	<th>Complexity</th>
-								      <th>Estimate data size (KB)</th>
-								      <th>Estimated peak transaction/sec</th>
-								      <th>Estimate number of routes</th>
+								      <th>Estimated data size (KB)</th>
+								      <th>Estimated peak transactions/minute</th>
+								      <th>Estimated number of routes</th>
 								    </tr>
 								  </thead>
 								  <tbody>
 								  	<tr>
 								  		<td><h5>Simple</h5></td>
 								  		<td><input class="col-sm-6 control-label" id="s-size" type="text" value=300></td>
-								  		<td><input class="col-sm-6 control-label" id="s-peak" type="text" value=20></td>
+								  		<td><input class="col-sm-6 control-label" id="s-peak" type="text" value=180></td>
 								  		<td><input class="col-sm-6 control-label" id="s-endpoint" type="text" value=6></td>
 								  	</tr>
 								  	<tr>
-								  		<td><h5>Meduim</h5></td>
-								  		<td><input class="col-sm-6 control-label" id="m-size" type="text" value=0></td>
-								  		<td><input class="col-sm-6 control-label" id="m-peak" type="text" value=0></td>
-								  		<td><input class="col-sm-6 control-label" id="m-endpoint" type="text" value=0></td>
+								  		<td><h5>Medium</h5></td>
+								  		<td><input class="col-sm-6 control-label" id="m-size" type="text" value=500></td>
+								  		<td><input class="col-sm-6 control-label" id="m-peak" type="text" value=120></td>
+								  		<td><input class="col-sm-6 control-label" id="m-endpoint" type="text" value=2></td>
 								  	</tr>
 								  	<tr>
 								  		<td><h5>High</h5></td>
-								  		<td><input class="col-sm-6 control-label" id="h-size" type="text" value=0></td>
-								  		<td><input class="col-sm-6 control-label" id="h-peak" type="text" value=0></td>
-								  		<td><input class="col-sm-6 control-label" id="h-endpoint" type="text" value=0></td>
+								  		<td><input class="col-sm-6 control-label" id="h-size" type="text" value=20000></td>
+								  		<td><input class="col-sm-6 control-label" id="h-peak" type="text" value=2></td>
+								  		<td><input class="col-sm-6 control-label" id="h-endpoint" type="text" value=1></td>
 								  	</tr>
 									</tbody>
 								</table>
@@ -100,9 +100,9 @@
 							    <label class="col-sm-3 control-label" for="textInput-markup">Log Level</label>
 							    <div class="col-sm-9">
 							      <select id="logsize" class="form-control">
-											<option value="10">DEBUG</option>
-											<option value="5" selected="selected">INFO</option>
-											<option value="2">WARN</option>
+											<option value="5">DEBUG</option>
+											<option value="2" selected="selected">INFO</option>
+											<option value="1">WARN</option>
 										</select>
 							    </div>
 							  </div>
@@ -119,7 +119,7 @@
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label class="col-sm-3 control-label" for="textInput-markup">Growth in %</label>
+							    <label class="col-sm-3 control-label" for="textInput-markup">Annual growth in %</label>
 							    <div class="col-sm-9">
 							      <input type="text" id="growth" class="form-control" value="0">							      
 							    </div>
@@ -249,7 +249,7 @@
 					  <div class="card-pf-body">
 						  <ul>
 					  		<li><b>Simple</b> - Web/API proxying, message passthrough</li>
-					  		<li><b>Meduim</b> - Web/API proxying or Events, with some data parsing and processing</li>
+					  		<li><b>Medium</b> - Web/API proxying or Events, with some data parsing and processing</li>
 					  		<li><b>High</b> - Large data parsing and processing with slower producer endpoints</li>
 					  	</ul>
 					  </div>
@@ -302,10 +302,10 @@
  	
  		//Estimate Load
 		/////////////////UPDATE WHEN NEW DATA AVALIABLE///////////////////////////////////
-		var sload = 14121;
-		var mload = 7278;
+		var sload = 17559;
+		var mload = 9098;
 		var hload = 3400;
-		var throughputsec=200; // change it from 300 to 200
+		var throughputsec=300; // change it from 300 to 200
 		
 		
 		var productInstall=1;
@@ -363,13 +363,13 @@
 		 		
 		 		//Say 2 GB is the default memory, the bigger the message, it will affect the performance
 				
-				var estSCore = Math.ceil((sUTPS*(1+extraload*0.01))/sload/(contingency*0.01)/throughputsec);
-				var estMCore = Math.ceil((mUTPS*(1+extraload*0.01))/mload/(contingency*0.01)/throughputsec);
-				var estHCore = Math.ceil((hUTPS*(1+extraload*0.01))/hload/(contingency*0.01)/throughputsec);
+				var estSCore = Math.ceil(((sUTPS/2)*(1+extraload*0.01))/(sload/throughputsec)/(contingency*0.01));
+				var estMCore = Math.ceil(((mUTPS/2)*(1+extraload*0.01))/(mload/throughputsec)/(contingency*0.01));
+				var estHCore = Math.ceil(((hUTPS/2)*(1+extraload*0.01))/(hload/throughputsec)/(contingency*0.01));
 				
-				var estSMem = Math.ceil((sUTPS*(1+extraload*0.01))/(contingency*0.01)/throughputsec*ssize/1000000);
-				var estMMem = Math.ceil((mUTPS*(1+extraload*0.01))/(contingency*0.01)/throughputsec*msize/1000000);
-				var estHMem = Math.ceil((hUTPS*(1+extraload*0.01))/(contingency*0.01)/throughputsec*hsize/1000000);
+				var estSMem = Math.ceil(((sUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*ssize/1000000);
+				var estMMem = Math.ceil(((mUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*msize/1000000);
+				var estHMem = Math.ceil(((hUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*hsize/1000000);
 				
 				
 				var estCore = estSCore+estMCore+estHCore;
