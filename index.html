@@ -67,8 +67,8 @@
 								  <thead>
 								    <tr>
 								    	<th>Complexity</th>
-								      <th>Estimated data size (KB)</th>
-								      <th>Estimated peak transactions/minute</th>
+								      <th> Estimated data size (KB)</th>
+								      <th>Estimated peak transactions/minute </th>
 								      <th>Estimated number of routes</th>
 								    </tr>
 								  </thead>
@@ -97,7 +97,7 @@
 
 						
 							  <div class="form-group">
-							    <label class="col-sm-3 control-label" for="textInput-markup">Log Level</label>
+							    <label class="col-sm-3 control-label" for="textInput-markup">Log Level <span class="fa pficon-help" data-toggle="tooltip" data-placement="top" title="Standard logging levels that can be used to control logging output"/></label>
 							    <div class="col-sm-9">
 							      <select id="logsize" class="form-control">
 											<option value="5">DEBUG</option>
@@ -107,19 +107,19 @@
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label class="col-sm-3 control-label" for="textInput-markup">Performance Contingency in %:</label>
+							    <label class="col-sm-3 control-label" for="textInput-markup">Performance Contingency in % <span class="fa pficon-help" data-toggle="tooltip" data-placement="top" title="Performance management contingency base on risk assessment. In case of worst, keep resource utilization rate to the % specified."/></label>
 							    <div class="col-sm-9">
 							      <input type="text" id="contingency" class="form-control" value="0">
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label class="col-sm-3 control-label" for="textInput-markup">Extra Load in %</label>
+							    <label class="col-sm-3 control-label" for="textInput-markup">Extra Load in % <span class="fa pficon-help" data-toggle="tooltip" data-placement="top" title="% of possible increase in transaction"/></label>
 							    <div class="col-sm-9">
 							      <input type="text" id="extraload" class="form-control" value="0">							      
 							    </div>
 							  </div>
 							  <div class="form-group">
-							    <label class="col-sm-3 control-label" for="textInput-markup">Annual growth in %</label>
+							    <label class="col-sm-3 control-label" for="textInput-markup">Annual growth in % </label>
 							    <div class="col-sm-9">
 							      <input type="text" id="growth" class="form-control" value="0">							      
 							    </div>
@@ -310,10 +310,15 @@
 		
 		var productInstall=1;
 		//////////////////////////////////////////////////////////////////////////////////
- 		$( "#notice" ).hide();
+ 		
+ 		
+ 		$(function () {
+		  $('[data-toggle="tooltip"]').tooltip()
+		  $("#notice").hide()
+		})
  		
  		$( "#calculate" ).click(function( event ) {
- 			
+ 				$("#notice").hide()
  				var ssize = $('#s-size').val();
 		 		var speak = $('#s-peak').val();
 		 		var sendpoint = $('#s-endpoint').val();
