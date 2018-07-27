@@ -302,9 +302,9 @@
  	
  		//Estimate Load
 		/////////////////UPDATE WHEN NEW DATA AVALIABLE///////////////////////////////////
-		var sload = 17559;
+		var sload = 17651;
 		var mload = 9098;
-		var hload = 3400;
+		var hload = 449;
 		var throughputsec=300; // change it from 300 to 200
 		
 		
@@ -372,6 +372,10 @@
 				var estMCore = Math.ceil(((mUTPS/2)*(1+extraload*0.01))/(mload/throughputsec)/(contingency*0.01));
 				var estHCore = Math.ceil(((hUTPS/2)*(1+extraload*0.01))/(hload/throughputsec)/(contingency*0.01));
 				
+				console.log('Simple TP30S:['+(sUTPS/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(sload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				console.log('Medium TP30S:['+(mUTPS/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(mload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				console.log('High   TP30S:['+(hUTPS/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(hload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				
 				var estSMem = Math.ceil(((sUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*ssize/1000000);
 				var estMMem = Math.ceil(((mUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*msize/1000000);
 				var estHMem = Math.ceil(((hUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*hsize/1000000);
@@ -380,9 +384,9 @@
 				var estCore = estSCore+estMCore+estHCore;
 				var estMaxMem = estSMem+estMMem+estHMem;
 				var estPod = Math.ceil(estCore/2);
-				console.log('estCore - '+estCore);
-				console.log('estMem - '+estMaxMem);
-				console.log('estPod - '+estPod);
+				//console.log('estCore - '+estCore);
+				//console.log('estMem - '+estMaxMem);
+				//console.log('estPod - '+estPod);
 
 				$('#estCore').text(estCore);
 				$('#estPod').text(estPod);
@@ -396,7 +400,7 @@
 				//Est Product Bundle size (EST. 2 core per host)
 				var estdisckspace = Math.ceil(((logsize * (estCore/2))+( productInstall* (estCore/2)))*(1+extraload*0.01));
 				
-				console.log('estdisckspace - '+estdisckspace);
+				//console.log('estdisckspace - '+estdisckspace);
 				
 				$('#estDisk').text(estdisckspace);
 				
