@@ -39,8 +39,8 @@
     <h1>Fuse 7 Sizing Reference</h1>
     
     <ul>
-		  <li>The purpose of this Fuse Sizing Application is to give a rough estimation of the minimums resources needed when deploying Red Hat Fuse </li>
-		  <li>This application requires you to specify the peak traffic, number of endpoints and the estimate size of the each transaction. </li>
+		  <li>The purpose of this Fuse Sizing Application is to give a rough estimation of the minimum resources needed when deploying Red Hat Fuse </li>
+		  <li>This application requires you to specify the peak traffic and the estimated size of the each transaction. </li>
 		  <li>The tooling will help you to estimate </li>
 		  <ul>
 		  		<li>The recommended cores to allocate for Integration </li>
@@ -69,27 +69,23 @@
 								    	<th>Complexity</th>
 								      <th> Estimated data size/transactions (KB)</th>
 								      <th>Estimated peak transactions/minute </th>
-								      <th>Estimated number of routes</th>
 								    </tr>
 								  </thead>
 								  <tbody>
 								  	<tr>
 								  		<td><h5>Simple</h5></td>
 								  		<td><input class="col-sm-6 control-label" id="s-size" type="text" value=300></td>
-								  		<td><input class="col-sm-6 control-label" id="s-peak" type="text" value=180></td>
-								  		<td><input class="col-sm-6 control-label" id="s-endpoint" type="text" value=6></td>
+								  		<td><input class="col-sm-6 control-label" id="s-peak" type="text" value=1200></td>
 								  	</tr>
 								  	<tr>
 								  		<td><h5>Medium</h5></td>
 								  		<td><input class="col-sm-6 control-label" id="m-size" type="text" value=500></td>
-								  		<td><input class="col-sm-6 control-label" id="m-peak" type="text" value=120></td>
-								  		<td><input class="col-sm-6 control-label" id="m-endpoint" type="text" value=2></td>
+								  		<td><input class="col-sm-6 control-label" id="m-peak" type="text" value=90></td>
 								  	</tr>
 								  	<tr>
 								  		<td><h5>High</h5></td>
 								  		<td><input class="col-sm-6 control-label" id="h-size" type="text" value=20000></td>
 								  		<td><input class="col-sm-6 control-label" id="h-peak" type="text" value=2></td>
-								  		<td><input class="col-sm-6 control-label" id="h-endpoint" type="text" value=1></td>
 								  	</tr>
 									</tbody>
 								</table>
@@ -109,23 +105,24 @@
 							  <div class="form-group">
 							    <label class="col-sm-3 control-label" for="textInput-markup">Performance Contingency in % <span class="fa pficon-help" data-toggle="tooltip" data-placement="top" title="Performance management contingency base on risk assessment. In case of worst, keep resource utilization rate to the % specified."/></label>
 							    <div class="col-sm-9">
-							      <input type="text" id="contingency" class="form-control" value="0">
+							      <input type="text" id="contingency" class="form-control" value="90">
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label class="col-sm-3 control-label" for="textInput-markup">Extra Load in % <span class="fa pficon-help" data-toggle="tooltip" data-placement="top" title="% of possible increase in transaction"/></label>
 							    <div class="col-sm-9">
-							      <input type="text" id="extraload" class="form-control" value="0">							      
+							      <input type="text" id="extraload" class="form-control" value="10">							      
 							    </div>
 							  </div>
 							  <div class="form-group">
 							    <label class="col-sm-3 control-label" for="textInput-markup">Annual growth in % </label>
 							    <div class="col-sm-9">
-							      <input type="text" id="growth" class="form-control" value="0">							      
+							      <input type="text" id="growth" class="form-control" value="45">							      
 							    </div>
 							  </div>
 							  <p align="left">
 					  			<button class="btn btn-primary" type="button" id="calculate">Calculate</button>
+					  			<button class="btn btn-primary" type="button" id="reset">Reset</button>
 								</p>
 							</form>
 							
@@ -321,25 +318,22 @@
  				$("#notice").hide()
  				var ssize = $('#s-size').val();
 		 		var speak = $('#s-peak').val();
-		 		var sendpoint = $('#s-endpoint').val();
+		 		
 		 		var msize = $('#m-size').val();
 		 		var mpeak = $('#m-peak').val();
-		 		var mendpoint = $('#m-endpoint').val();
+		 		
 		 		var hsize = $('#h-size').val();
 		 		var hpeak = $('#h-peak').val();
-		 		var hendpoint = $('#h-endpoint').val();
+		 		
  			
  				if(!$.isNumeric(ssize)){ssize=0; $('#s-size').val(0);}
 				if(!$.isNumeric(speak)){speak=0; $('#s-peak').val(0);}
-				if(!$.isNumeric(sendpoint)){sendpoint=0; $('#s-endpoint').val(0);}
 				
 				if(!$.isNumeric(msize)){ssize=0; $('#m-size').val(0);}
 				if(!$.isNumeric(mpeak)){speak=0; $('#m-peak').val(0);}
-				if(!$.isNumeric(mendpoint)){sendpoint=0; $('#m-endpoint').val(0);}
 				
 				if(!$.isNumeric(hsize)){ssize=0; $('#h-size').val(0);}
 				if(!$.isNumeric(hpeak)){speak=0; $('#h-peak').val(0);}
-				if(!$.isNumeric(hendpoint)){sendpoint=0; $('#h-endpoint').val(0);}
 				
 				var contingency = $('#contingency').val();
 				var extraload = $('#extraload').val();
@@ -351,11 +345,6 @@
 				if(!$.isNumeric(extraload)){extraload=0; $('#extraload').val(0);}
 				if(!$.isNumeric(growth)){growth=0; $('#growth').val(0);}
 				if(!$.isNumeric(logsize)){logsize=5;}
-				
-				
-				var sUTPS= speak*sendpoint;
-				var mUTPS= mpeak*mendpoint;
-				var hUTPS= hpeak*hendpoint;
 
 		 		
 		 		if(contingency==0){
@@ -368,17 +357,17 @@
 		 		
 		 		//Say 2 GB is the default memory, the bigger the message, it will affect the performance
 				
-				var estSCore = Math.ceil(((sUTPS/2)*(1+extraload*0.01))/(sload/throughputsec)/(contingency*0.01));
-				var estMCore = Math.ceil(((mUTPS/2)*(1+extraload*0.01))/(mload/throughputsec)/(contingency*0.01));
-				var estHCore = Math.ceil(((hUTPS/2)*(1+extraload*0.01))/(hload/throughputsec)/(contingency*0.01));
+				var estSCore = Math.ceil(((speak/2)*(1+extraload*0.01))/(sload/throughputsec)/(contingency*0.01));
+				var estMCore = Math.ceil(((mpeak/2)*(1+extraload*0.01))/(mload/throughputsec)/(contingency*0.01));
+				var estHCore = Math.ceil(((hpeak/2)*(1+extraload*0.01))/(hload/throughputsec)/(contingency*0.01));
 				
-				console.log('Simple TP30S:['+(sUTPS/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(sload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
-				console.log('Medium TP30S:['+(mUTPS/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(mload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
-				console.log('High   TP30S:['+(hUTPS/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(hload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				console.log('Simple TP30S:['+(speak/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(sload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				console.log('Medium TP30S:['+(mpeak/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(mload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				console.log('High   TP30S:['+(hpeak/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(hload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
 				
-				var estSMem = Math.ceil(((sUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*ssize/1000000);
-				var estMMem = Math.ceil(((mUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*msize/1000000);
-				var estHMem = Math.ceil(((hUTPS/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*hsize/1000000);
+				var estSMem = Math.ceil(((speak/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*ssize/1000000);
+				var estMMem = Math.ceil(((mpeak/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*msize/1000000);
+				var estHMem = Math.ceil(((hpeak/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*hsize/1000000);
 				
 				
 				var estCore = estSCore+estMCore+estHCore;
@@ -409,7 +398,20 @@
  			
  		});
  		
- 		
+ 		$( "#reset" ).click(function( event ) {
+ 			$('#s-size').val(0); $('#s-peak').val(0);
+			$('#m-size').val(0); $('#m-peak').val(0);
+			$('#h-size').val(0); $('#h-peak').val(0);
+			$('#contingency').val(0);
+			$('#extraload').val(0);
+			$('#growth').val(0);
+			$('#estCore').text('-');
+			$('#estPod').text('-');
+			$('#estMaxMem').text('-');
+			$('#estCoreY2').text('-');
+			$('#estPodY2').text('-');
+			$('#estMaxMemY2').text('-');
+ 		});
  	
  		
  		
@@ -422,7 +424,7 @@
               
                Fuse 7 Sizing Guide v1.0
               <BR/>
-              Any question please contact <a href="mailto:clin@redhat.com?Subject=Sizing Guide%20Question" target="_top">Christina Lin</a>
+              Contact <a href="mailto:clin@redhat.com?Subject=Sizing Guide%20Question" target="_top">Christina Lin</a> for any questions.
               
             </footer>
 </body>
