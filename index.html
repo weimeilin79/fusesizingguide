@@ -75,7 +75,7 @@
 								  	<tr>
 								  		<td><h5>Simple</h5></td>
 								  		<td><input class="col-sm-6 control-label" id="s-size" type="text" value=300></td>
-								  		<td><input class="col-sm-6 control-label" id="s-peak" type="text" value=1200></td>
+								  		<td><input class="col-sm-6 control-label" id="s-peak" type="text" value=40000></td>
 								  	</tr>
 								  	<tr>
 								  		<td><h5>Medium</h5></td>
@@ -357,13 +357,13 @@
 		 		
 		 		//Say 2 GB is the default memory, the bigger the message, it will affect the performance
 				
-				var estSCore = Math.ceil(((speak/2)*(1+extraload*0.01))/(sload/throughputsec)/(contingency*0.01));
-				var estMCore = Math.ceil(((mpeak/2)*(1+extraload*0.01))/(mload/throughputsec)/(contingency*0.01));
-				var estHCore = Math.ceil(((hpeak/2)*(1+extraload*0.01))/(hload/throughputsec)/(contingency*0.01));
+				var estSCore = Math.ceil(((speak/60)*(1+extraload*0.01))/(sload/throughputsec)/(contingency*0.01));
+				var estMCore = Math.ceil(((mpeak/60)*(1+extraload*0.01))/(mload/throughputsec)/(contingency*0.01));
+				var estHCore = Math.ceil(((hpeak/60)*(1+extraload*0.01))/(hload/throughputsec)/(contingency*0.01));
 				
-				console.log('Simple TP30S:['+(speak/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(sload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
-				console.log('Medium TP30S:['+(mpeak/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(mload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
-				console.log('High   TP30S:['+(hpeak/2)+'] with extra load :['+extraload+'] benchmark throughput:['+(hload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				console.log('Simple TP30S:['+(speak/60)+'] with extra load :['+extraload+'] benchmark throughput:['+(sload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				console.log('Medium TP30S:['+(mpeak/60)+'] with extra load :['+extraload+'] benchmark throughput:['+(mload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
+				console.log('High   TP30S:['+(hpeak/60)+'] with extra load :['+extraload+'] benchmark throughput:['+(hload/throughputsec)+'] contingency:['+(contingency*0.01)+']');
 				
 				var estSMem = Math.ceil(((speak/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*ssize/1000000);
 				var estMMem = Math.ceil(((mpeak/2)*(1+extraload*0.01))/(contingency*0.01)/throughputsec*msize/1000000);
@@ -371,7 +371,7 @@
 				
 				
 				var estCore = estSCore+estMCore+estHCore;
-				var estMaxMem = estSMem+estMMem+estHMem;
+				var estMaxMem = estSMem+estMMem+estHMem+1;
 				var estPod = Math.ceil(estCore/2);
 				//console.log('estCore - '+estCore);
 				//console.log('estMem - '+estMaxMem);
